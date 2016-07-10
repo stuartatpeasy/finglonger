@@ -1,0 +1,12 @@
+*.log
+**/synlog
+**/syntmp
+**/synwork
+**/sbt/netlist
+**/sbt/outputs/netlister
+**/sbt/outputs/packer
+**/sbt/outputs/placer
+**/sbt/outputs/router
+**/sbt/Temp
+**/scratchproject.*
+

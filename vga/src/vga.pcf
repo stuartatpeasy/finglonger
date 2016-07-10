@@ -1,0 +1,30 @@
+###############################################################################
+# iCEcube PCF
+# Version:            2012.09SP1.22498
+# File Generated:     May 1 2013 11:36:30
+# Family & Device:    iCE40HX1K
+# Package:            TQ144
+###############################################################################
+
+# Clock input - 12MHz on the ICEstick
+set_io  CLK     21
+
+# On-board LEDs
+set_io  LED1    99      # red north
+set_io  LED2    98      # red east
+set_io  LED3    97      # red south
+set_io  LED4    96      # red west
+set_io  LED5    95      # green
+
+# clock output - only for testing
+set_io  CLKOUT  112
+
+#
+# VGA outputs
+#
+set_io  VSYNC   113
+set_io  HSYNC   114
+
+set_io  R       115
+set_io  G       116
+set_io  B       117
