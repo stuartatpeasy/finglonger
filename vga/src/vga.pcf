@@ -7,7 +7,7 @@
 ###############################################################################
 
 # Clock input - 12MHz on the ICEstick
-set_io  CLK         21
+set_io  CLK         21      # -io_std SB_LVCMOS   -pullup no
 
 # On-board LEDs
 set_io  LED1        99      # red north
@@ -19,9 +19,24 @@ set_io  LED5        95      # green
 #
 # VGA outputs
 #
-set_io  V_SYNC      113
-set_io  H_SYNC      114
+set_io  V_SYNC      112     # -io_std SB_LVCMOS   -pullup no
+set_io  H_SYNC      113     # -io_std SB_LVCMOS   -pullup no
 
-set_io  R           115
-set_io  G           116
-set_io  B           117
+
+set_io  R[4]        117     # -io_std SB_LVCMOS   -pullup no
+set_io  R[3]        116     # -io_std SB_LVCMOS   -pullup no
+set_io  R[2]        115     # -io_std SB_LVCMOS   -pullup no
+set_io  R[1]        114     # -io_std SB_LVCMOS   -pullup no
+set_io  R[0]        78      # PIO1_02
+
+set_io  G[4]        44      # -io_std SB_LVCMOS   -pullup no
+set_io  G[3]        45      # -io_std SB_LVCMOS   -pullup no
+set_io  G[2]        47      # -io_std SB_LVCMOS   -pullup no
+set_io  G[1]        48      # -io_std SB_LVCMOS   -pullup no
+set_io  G[0]        79      # PIO1_03
+
+set_io  B[4]        56      # -io_std SB_LVCMOS   -pullup no
+set_io  B[3]        60      # -io_std SB_LVCMOS   -pullup no
+set_io  B[2]        61      # -io_std SB_LVCMOS   -pullup no
+set_io  B[1]        62      # -io_std SB_LVCMOS   -pullup no
+set_io  B[0]        80      # PIO1_04=

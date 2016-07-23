@@ -32,16 +32,16 @@ entity vga_controller is
         H_SYNC          : out std_logic;    -- horizontal sync
         V_SYNC          : out std_logic;    -- vertical sync
 
-        R               : out std_logic;    -- red output
-        G               : out std_logic;    -- green output
-        B               : out std_logic;    -- blue output
+        R               : out std_logic_vector(4 downto 0);     -- red output
+        G               : out std_logic_vector(4 downto 0);     -- green output
+        B               : out std_logic_vector(4 downto 0);     -- blue output
 
         DISP_EN         : out std_logic;    -- display enable
 
         COL             : out std_logic_vector(11 downto 0);    -- h co-ordinate of next pixel
         ROW             : out std_logic_vector(11 downto 0);    -- v co-ordinate of next pixel
 
-        PIXEL           : in  std_logic_vector(2 downto 0)      -- pixel data
+        PIXEL           : in  std_logic_vector(14 downto 0)      -- pixel data
     );
 end vga_controller;
 
@@ -50,8 +50,8 @@ architecture behaviour of vga_controller is
     constant h_period   : integer := vga_h_sync + vga_h_bp + vga_h_pixels + vga_h_fp;
     constant v_period   : integer := vga_v_sync + vga_v_bp + vga_v_pixels + vga_v_fp;
 
-    signal pix_val_p2   : std_logic_vector(2 downto 0);
-    signal pix_val_p3   : std_logic_vector(2 downto 0);
+    signal pix_val_p2   : std_logic_vector(14 downto 0);
+    signal pix_val_p3   : std_logic_vector(14 downto 0);
     signal h_sync_p1    : std_logic;
     signal h_sync_p2    : std_logic;
     signal v_sync_p1    : std_logic;
@@ -80,27 +80,13 @@ begin
             V_SYNC      <= v_sync_p2;
 
             if((h_count < vga_h_pixels) and (v_count < vga_v_pixels)) then
-                if(pix_val_p3(2) = '1') then
-                    R <= '1';
-                else
-                    R <= '0';
-                end if;
-
-                if(pix_val_p3(1) = '1') then
-                    G <= '1';
-                else
-                    G <= '0';
-                end if;
-
-                if(pix_val_p3(0) = '1') then
-                    B <= '1';
-                else
-                    B <= '0';
-                end if;
+                R <= pix_val_p3(4 downto 0);
+                G <= pix_val_p3(9 downto 5);
+                B <= pix_val_p3(14 downto 10);
             else
-                R <= '0';
-                G <= '0';
-                B <= '0';
+                R <= (others => '0');
+                G <= (others => '0');
+                B <= (others => '0');
             end if;
 
 
@@ -110,6 +96,7 @@ begin
             pix_val_p2 <= PIXEL;
             h_sync_p2 <= h_sync_p1;
             v_sync_p2 <= v_sync_p1;
+
 
             --
             -- Pipeline stage 1: calculate next pixel address and latch it on ROW and COL.
