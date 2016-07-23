@@ -7,24 +7,21 @@
 ###############################################################################
 
 # Clock input - 12MHz on the ICEstick
-set_io  CLK     21
+set_io  CLK         21
 
 # On-board LEDs
-set_io  LED1    99      # red north
-set_io  LED2    98      # red east
-set_io  LED3    97      # red south
-set_io  LED4    96      # red west
-set_io  LED5    95      # green
-
-# clock output - only for testing
-set_io  CLKOUT  112
+set_io  LED1        99      # red north
+set_io  LED2        98      # red east
+set_io  LED3        97      # red south
+set_io  LED4        96      # red west
+set_io  LED5        95      # green
 
 #
 # VGA outputs
 #
-set_io  VSYNC   113
-set_io  HSYNC   114
+set_io  V_SYNC      113
+set_io  H_SYNC      114
 
-set_io  R       115
-set_io  G       116
-set_io  B       117
+set_io  R           115
+set_io  G           116
+set_io  B           117

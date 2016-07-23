@@ -1,10 +1,10 @@
 #-- Synopsys, Inc.
 #-- Project file C:\Users\swallace\Documents\Electronics\Designs\finglonger\vga\vga_syn.prj
 #project files
-add_file -vhdl -lib work "src/vga.vhdl"
-add_file -vhdl -lib work "src/vga_controller.vhdl"
-add_file -vhdl -lib work "src/vga_pll.vhdl"
 
+add_file -vhdl -lib work "src/vga.vhdl" 
+add_file -vhdl -lib work "src/vga_controller.vhdl" 
+add_file -vhdl -lib work "src/pll.vhdl" 
 #implementation: "vga_Implmnt"
 impl -add vga_Implmnt -type fpga
 
@@ -54,5 +54,5 @@ set_option -write_apr_constraint 1
 project -result_format "edif"
 project -result_file ./vga_Implmnt/vga.edf
 project -log_file "./vga_Implmnt/vga.srr"
-impl -active "vga_Implmnt"
+impl -active vga_Implmnt
 project -run synthesis -clean
