@@ -7,36 +7,36 @@
 ###############################################################################
 
 # Clock input - 12MHz on the ICEstick
-set_io  CLK         21      # -io_std SB_LVCMOS   -pullup no
+set_io  CLK         21      # GBIN6/PIO3_00/DP08A
 
 # On-board LEDs
-set_io  LED1        99      # red north
-set_io  LED2        98      # red east
-set_io  LED3        97      # red south
-set_io  LED4        96      # red west
-set_io  LED5        95      # green
+set_io  LED1        99      # PIO1_14   red north
+set_io  LED2        98      # PIO1_13   red east
+set_io  LED3        97      # PIO1_12   red south
+set_io  LED4        96      # PIO1_11   red west
+set_io  LED5        95      # PIO1_10   green
 
 #
 # VGA outputs
 #
-set_io  V_SYNC      112     # -io_std SB_LVCMOS   -pullup no
-set_io  H_SYNC      113     # -io_std SB_LVCMOS   -pullup no
+set_io  V_SYNC      112     # PIO0_02
+set_io  H_SYNC      113     # PIO0_03
 
 
-set_io  R[4]        117     # -io_std SB_LVCMOS   -pullup no
-set_io  R[3]        116     # -io_std SB_LVCMOS   -pullup no
-set_io  R[2]        115     # -io_std SB_LVCMOS   -pullup no
-set_io  R[1]        114     # -io_std SB_LVCMOS   -pullup no
+set_io  R[4]        117     # PIO0_07
+set_io  R[3]        116     # PIO0_06
+set_io  R[2]        115     # PIO0_05
+set_io  R[1]        114     # PIO0_04
 set_io  R[0]        78      # PIO1_02
 
-set_io  G[4]        44      # -io_std SB_LVCMOS   -pullup no
-set_io  G[3]        45      # -io_std SB_LVCMOS   -pullup no
-set_io  G[2]        47      # -io_std SB_LVCMOS   -pullup no
-set_io  G[1]        48      # -io_std SB_LVCMOS   -pullup no
+set_io  G[4]        44      # PIO2_10
+set_io  G[3]        45      # PIO2_11
+set_io  G[2]        47      # PIO2_12
+set_io  G[1]        48      # PIO2_13
 set_io  G[0]        79      # PIO1_03
 
-set_io  B[4]        56      # -io_std SB_LVCMOS   -pullup no
-set_io  B[3]        60      # -io_std SB_LVCMOS   -pullup no
-set_io  B[2]        61      # -io_std SB_LVCMOS   -pullup no
-set_io  B[1]        62      # -io_std SB_LVCMOS   -pullup no
-set_io  B[0]        80      # PIO1_04=
+set_io  B[4]        56      # PIO2_14
+set_io  B[3]        60      # PIO2_15
+set_io  B[2]        61      # PIO2_16
+set_io  B[1]        62      # PIO2_17
+set_io  B[0]        80      # PIO1_04
