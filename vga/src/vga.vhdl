@@ -24,15 +24,19 @@ use ieee.std_logic_unsigned.all;
 
 
 entity vga_gen is
+    generic(
+        bpp     : integer := 5      -- bits per colour plane
+    );
+
     port(
-        CLK         : in std_logic;                         -- master clock input (12MHz)
+        CLK     : in std_logic;     -- master clock input (12MHz)
 
-        H_SYNC      : out std_logic;                        -- horizontal sync
-        V_SYNC      : out std_logic;                        -- vertical sync
+        H_SYNC,                     -- horizontal sync
+        V_SYNC  : out std_logic;    -- vertical sync
 
-        R           : out std_logic_vector(4 downto 0);     -- red
-        G           : out std_logic_vector(4 downto 0);     -- green
-        B           : out std_logic_vector(4 downto 0)      -- blue
+        R,                                                  -- red
+        G,                                                  -- green
+        B       : out std_logic_vector(bpp - 1 downto 0)    -- blue
     );
 end;
 
@@ -43,10 +47,9 @@ architecture behaviour of vga_gen is
 
     signal disp_en      : std_logic;
 
-    signal x            : std_logic_vector(11 downto 0);
-    signal y            : std_logic_vector(11 downto 0);
+    signal x, y         : std_logic_vector(10 downto 0);
 
-    signal pix_val      : std_logic_vector(14 downto 0);
+    signal pix_val      : std_logic_vector((bpp * 3) - 1 downto 0);
 begin
 
     -- instantiate a clock-generator PLL, fixed at 201.4MHz, =8 x 25.175MHz (for 640x480)
@@ -57,12 +60,12 @@ begin
             --pll_divq        => "010"
 
             -- 800x600
-            pll_divf        => "0110100",
-            pll_divq        => "010"
+            --pll_divf        => "0110100",
+            --pll_divq        => "010"
 
             -- 640x480
-            --pll_divf        => "1000010",
-            --pll_divq        => "011"
+            pll_divf        => "1000010",
+            pll_divq        => "011"
         )
         port map(
             REFERENCECLK    => CLK,
@@ -86,6 +89,8 @@ begin
     -- instantiate a VGA controller module; set resolution to 640x480 @60Hz
     vga_controller_inst: entity work.vga_controller 
         generic map(
+            bpp             => bpp,
+
             -- 1024x768
             --vga_h_sync      => 136,
             --vga_h_fp        => 24,
@@ -100,30 +105,30 @@ begin
             --vga_v_sync_pol  => '0'
 
             -- 800x600
-            vga_h_sync      => 128,
-            vga_h_fp        => 40,
-            vga_h_bp        => 88,
-            vga_h_pixels    => 800,
-            vga_h_sync_pol  => '1',
-
-            vga_v_sync      => 4,
-            vga_v_fp        => 1,
-            vga_v_bp        => 23,
-            vga_v_pixels    => 600,
-            vga_v_sync_pol  => '1'
+            --vga_h_sync      => 128,
+            --vga_h_fp        => 40,
+            --vga_h_bp        => 88,
+            --vga_h_pixels    => 800,
+            --vga_h_sync_pol  => '1',
+              
+            --vga_v_sync      => 4,
+            --vga_v_fp        => 1,
+            --vga_v_bp        => 23,
+            --vga_v_pixels    => 600,
+            --vga_v_sync_pol  => '1'
 
             -- 640x480
-            --vga_h_sync      => 96,
-            --vga_h_fp        => 16,
-            --vga_h_bp        => 48,
-            --vga_h_pixels    => 640,
-            --vga_h_sync_pol  => '0',
+            vga_h_sync      => 96,
+            vga_h_fp        => 16,
+            vga_h_bp        => 48,
+            vga_h_pixels    => 640,
+            vga_h_sync_pol  => '0',
 
-            --vga_v_sync      => 2,
-            --vga_v_fp        => 10,
-            --vga_v_bp        => 33,
-            --vga_v_pixels    => 480,
-            --vga_v_sync_pol  => '0'
+            vga_v_sync      => 2,
+            vga_v_fp        => 10,
+            vga_v_bp        => 33,
+            vga_v_pixels    => 480,
+            vga_v_sync_pol  => '0'
         )
         port map(
             CLK             => pix_clk,
@@ -143,12 +148,13 @@ begin
             B               => B
         );
 
+    -- pixel-lighting process
     process(x, y, pix_clk)
     begin
         if(rising_edge(pix_clk)) then
-            pix_val <=   y(7) & y(6) & y(5) & y(4) & y(3)       -- blue component
+            pix_val <=   y(6) & y(5) & y(4) & y(3) & y(2)       -- blue component
                        & x(8) & x(7) & x(6) & x(5) & x(4)       -- green component
-                       & y(8) & x(3) & x(2) & x(1) & x(0);      -- red component
+                       & y(7) & x(3) & x(2) & x(1) & x(0);      -- red component
         end if;
     end process;
 end behaviour;
