@@ -52,7 +52,7 @@ architecture behaviour of vga_gen is
     signal pix_val      : std_logic_vector((bpp * 3) - 1 downto 0);
 begin
 
-    -- instantiate a clock-generator PLL, fixed at 201.4MHz, =8 x 25.175MHz (for 640x480)
+    -- instantiate a clock-generator PLL, fixed at 100.7MHz [=4 x 25.175MHz (for 640x480)]
     pll_inst: entity work.pll 
         generic map(
             -- 1024x768
